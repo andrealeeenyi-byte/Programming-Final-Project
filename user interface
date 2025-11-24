@@ -1,0 +1,7 @@
+import os
+
+def main_menu():
+
+print("*" *40)
+print("\033[1mSTUDENT PERFORMANCE SYSTEM\033[0m")
+print("*" *40)
