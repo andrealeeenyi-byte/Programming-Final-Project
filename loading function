@@ -1,0 +1,83 @@
+import os
+
+STUDENTS_file="students.txt"
+COURSES_file="courses.txt"
+GRADES_file="grades.txt"
+
+#file initialization
+def file_initialization():
+    for filename in [STUDENTS_file,COURSES_file,GRADES_file]:
+        #check if file existed
+        if not os.path.exists(filename):
+            #open an EMPTY file by opening the file then do nothing
+            with open(filename,"w") as f:
+                pass
+
+#fileloading:
+#loading students
+def load_students():
+    students={}
+
+    """check if student file exist. If not, return empty dictonary"""
+    if not os.path.exists(STUDENTS_file):
+        return students
+
+    """start loading"""
+    with open(STUDENTS_file,"r") as Stu_f:
+        for line in Stu_f:
+            try:
+                #use map to apply every function
+                """1)assign every variable(id,name,email) 2)remove space 3)add comma between variable"""
+                sid,name,email=map(str.strip,line.split(","))
+                """converting raw text data into organized data structure"""
+                students[sid]={"name":name,"email":email}
+                """if somethings wrong in 'map', the programme will still continue by skipping it"""
+            except ValueError:
+                continue
+    return students
+
+#loading courses
+def load_courses():
+    courses={}
+
+    """check if courses file exist. If not, return empty dictonary"""
+    if not os.path.exists(COURSES_file):
+        return courses
+
+    """Start loading"""
+    with open(COURSES_file,"r") as courses_f:
+        for line in courses_f:
+            try:
+                #use map to apply every function
+                """1)assign every variable(cid,cname,credit_hour,lecturer) 2)remove space 3)add comma between variable"""
+                cid,cname,credit_hour,lecturer=map(str.strip,line.split(","))
+                """converting raw text data into organized data structure"""
+                courses[cid]={"course name":cname,"credit hour":credit_hour,"lecturer name":lecturer}
+                """if somethings wrong in 'map', the programme will still continue by skipping it"""
+            except ValueError:
+                continue
+    return courses
+
+#loading grades
+def load_grades():
+    grades=[]"""here we use list instead of dictionary bcs there will be repeating data"""
+
+    """check if courses file exist. If not, return empty dictonary"""
+    if not os.path.exists(GRADES_file):
+        return grades
+
+    """start loading"""
+    with open(GRADES_file,"r")as grades_f:
+        for line in grades_f:
+            try:
+                sid,cid,str_mark,grade=map(str.strip,line.split(","))
+                """change mark from string to number for calculation later"""
+                marks=float(marks_str)
+                """add ONE dictionary into the list"""
+                grades.append({"student_id":sid,
+                                "course_id":cid,
+                                "marks":marks,
+                                "grade":grade})
+            except ValueError:
+                continue
+    return grades
